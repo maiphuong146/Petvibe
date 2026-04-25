@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+/* GIỮ NGUYÊN CSS GỐC */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
+.pg{background:#fffaf5;border:0.5px solid #c4b49a;border-radius:12px;overflow:hidden;zoom:1.5}
+.topbar{background:#5c3d1e;color:#f5ede0;text-align:center;padding:6px;font-size:10px;letter-spacing:0.5px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:#fffaf5;border-bottom:0.5px solid #e0cdb5}
+.logo{font-size:18px;font-weight:500;color:#3d2410;letter-spacing:2px}
+.nav-links{display:flex;gap:20px;font-size:11px;color:#7a4e2d}
+.nav-links span{cursor:pointer}
+.nav-links span:hover{color:#3d2410}
+.nav-right{display:flex;gap:12px;font-size:11px;color:#7a4e2d;align-items:center}
+.btn{border-radius:6px;cursor:pointer;font-size:11px;font-weight:500;padding:7px 16px;border:none}
+.btn-primary{background:#8B5E3C;color:#fffaf5}
+.btn-outline{background:transparent;color:#8B5E3C;border:1px solid #8B5E3C}
+.btn-white{background:#fffaf5;color:#3d2410}
+.hero{background:#3d2410;padding:36px 24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;min-height:220px}
+.hero-content{
+  padding-left:80px;
+}
+.hero-badge{display:inline-block;background:#8B5E3C;color:#f5ede0;font-size:9px;padding:3px 10px;border-radius:20px;margin-bottom:10px;letter-spacing:0.5px}
+.hero-title{font-size:22px;font-weight:500;color:#fffaf5;line-height:1.25;margin-bottom:8px}
+.hero-sub{font-size:11px;color:#c4a07a;margin-bottom:16px;line-height:1.5}
+.hero-visual{background:#5c3d1e;border-radius:12px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:0.5px solid #8B5E3C;padding:16px}
+.steps-bar{display:flex;background:#fbeee0;border-bottom:0.5px solid #e0cdb5}
+.step-item{flex:1;text-align:center;padding:10px 4px;border-right:0.5px solid #e0cdb5}
+.step-item:last-child{border-right:none}
+.step-num{width:20px;height:20px;border-radius:50%;background:#8B5E3C;color:white;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 4px}
+.section{padding:24px}
+.section-title{font-size:16px;font-weight:500;color:#3d2410;margin-bottom:4px}
+.section-sub{font-size:10px;color:#9c8269;margin-bottom:16px}
+.product-card{background:#fff;border:0.5px solid #e0cdb5;border-radius:10px;overflow:hidden;cursor:pointer}
+.product-card:hover{border-color:#8B5E3C}
+.product-img{
+  background:#f5ede0;
+  aspect-ratio:1/1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-bottom:0.5px solid #e0cdb5;
+  overflow:hidden;
+}
+.product-info{padding:10px}
+.tag{display:inline-block;font-size:8px;padding:2px 6px;border-radius:10px;background:#fbeee0;color:#7a4e2d;margin-bottom:4px}
+.star{color:#c8873a;font-size:10px}
+.review-card{background:#fff;border:0.5px solid #e0cdb5;border-radius:10px;padding:12px}
+.trust-item{text-align:center;padding:16px 8px}
+.customizer{background:#f5ede0;border-radius:10px;padding:16px;border:0.5px solid #d4b896}
+.upload-zone{border:1.5px dashed #c4a07a;border-radius:8px;padding:20px;text-align:center;background:#fffaf5;cursor:pointer}
+.upload-zone:hover{background:#fbeee0}
+.color-swatch{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent; transition: all 0.2s;}
+.color-swatch.active{border-color: #3d2410; transform: scale(1.15);}
+.prod-option{flex:1;text-align:center;padding:5px;border-radius:6px;font-size:9px;cursor:pointer; transition: all 0.2s;}
+.prod-option.active{background:#8B5E3C !important; color:#fffaf5 !important; font-weight:500;}
+.footer{background:#3d2410;padding:20px 24px;color:#c4a07a}
+
+/* HOW WE WORK STYLE */
+.how-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+.how-work-card{background:#fffaf5;border:0.5px solid #e0cdb5;border-radius:10px;padding:16px;text-align:left}
+.how-work-icon{font-size:20px;margin-bottom:8px;display:block}
+.how-work-card h3{font-size:12px;font-weight:600;color:#3d2410;margin-bottom:6px}
+.how-work-card p{font-size:10px;color:#7a4e2d;line-height:1.4}
+
+/* FAQ STYLE CẬP NHẬT */
+.faq-item{border:0.5px solid #e0cdb5;border-radius:8px;margin-bottom:10px;overflow:hidden;background:#fff;transition:all 0.2s}
+.faq-header{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.faq-item:hover{border-color:#3d2410}
+.faq-question{font-size:12px;color:#3d2410;font-weight:500}
+.faq-icon{font-size:12px;color:#9c8269;transition: transform 0.3s}
+.faq-answer{max-height:0;overflow:hidden;padding:0 20px;font-size:11px;color:#5c3d1e;line-height:1.5;transition: max-height 0.3s ease-out, padding 0.3s ease;}
+.faq-item.active .faq-answer{max-height:100px;padding-bottom:14px}
+.faq-item.active .faq-icon{transform: rotate(45deg)}
+
+/* MÀU NỀN MỚI THEO YÊU CẦU: #fffaf5 */
+#products-section, #how-we-work-section, #faq-section {
+    background-color: #fffaf5 !important;
+}
+#faq-section { border-top: none !important; padding-top: 24px !important;}
+</style>
+</head>
+<body>
+
+<div class="pg">
+
+  <div class="topbar">Free shipping on orders over $75 · Ships to US & EU · Handcrafted with love</div>
+
+  <div class="nav">
+    <span class="logo">PETVIBE</span>
+    <div class="nav-links">
+      <span onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Shop</span>
+      <span onclick="document.getElementById('how-we-work-section').scrollIntoView({behavior:'smooth'})">How it works</span>
+      <span onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Gallery</span>
+      <span onclick="document.getElementById('reviews-section').scrollIntoView({behavior:'smooth'})">Reviews</span>
+      <span onclick="document.getElementById('faq-section').scrollIntoView({behavior:'smooth'})">FAQ</span>
+    </div>
+    <div class="nav-right">
+      <span>Search</span>
+      <span>Cart (0)</span>
+      <button class="btn btn-primary" onclick="document.getElementById('customizer-section').scrollIntoView({behavior:'smooth'})"><strong>Start customizing</strong></button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-content">
+      
+      <span class="hero-badge">Custom Embroidery · Wearable Art</span>
+      
+      <div class="hero-title">
+        Turn your pet into<br>a wearable masterpiece
+      </div>
+
+      <div class="hero-sub">
+        Upload a photo of your dog or cat.<br>
+        We embroider it stitch by stitch onto premium apparel.
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-white" onclick="document.getElementById('customizer-section').scrollIntoView({behavior:'smooth'})">
+          <strong>Customize now</strong> →
+        </button>
+
+        <button class="btn btn-outline" style="color:#c4a07a;border-color:#c4a07a"
+          onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">
+          See gallery
+        </button>
+      </div>
+
+      <div style="display:flex;gap:16px;margin-top:14px">
+        <div style="font-size:10px;color:#c4a07a">
+          <span style="font-size:14px;font-weight:500;color:#fffaf5;display:block">4.9★</span>
+          238 reviews
+        </div>
+
+        <div style="font-size:10px;color:#c4a07a">
+          <span style="font-size:14px;font-weight:500;color:#fffaf5;display:block">1,200+</span>
+          orders shipped
+        </div>
+
+        <div style="font-size:10px;color:#c4a07a">
+          <span style="font-size:14px;font-weight:500;color:#fffaf5;display:block">100%</span>
+          approve before we sew
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" style="padding:0;border-radius:12px;overflow:hidden;min-height:160px">
+      <img src="assets/ava.png" alt="Your pet"
+          style="width:100%;height:100%;object-fit:cover;display:block;min-height:160px">
+    </div>
+  </div>
+
+  <div class="steps-bar">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div style="font-size:9px;font-weight:500;color:#3d2410">Upload photo</div>
+      <div style="font-size:8px;color:#9c8269">Your pet</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div style="font-size:9px;font-weight:500;color:#3d2410">We digitize</div>
+      <div style="font-size:8px;color:#9c8269">Stitch by stitch</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div style="font-size:9px;font-weight:500;color:#3d2410">You approve</div>
+      <div style="font-size:8px;color:#9c8269">Free mock-up</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div style="font-size:9px;font-weight:500;color:#3d2410">We embroider</div>
+      <div style="font-size:8px;color:#9c8269">Premium quality</div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div style="font-size:9px;font-weight:500;color:#3d2410">Delivered</div>
+      <div style="font-size:8px;color:#9c8269">5–7 days</div>
+    </div>
+  </div>
+
+  <div class="section" id="products-section">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div>
+        <div class="section-title">Our products</div>
+        <div class="section-sub" style="color:#3d2410">All embroidered from your pet photo</div>
+      </div>
+      <span style="font-size:11px;color:#3d2410;font-weight:500;cursor:pointer">View all →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <!-- PRODUCT 1 -->
+        <div class="product-card">
+          <div class="product-img" style="padding:0">
+            <img src="assets/hoodie.jpg" alt="Pet Portrait Hoodie"
+                style="width:100%;height:auto;max-height:100%;object-fit:contain;display:block;margin:auto">
+          </div>
+          <div class="product-info">
+            <span class="tag">Bestseller</span>
+            <div style="font-size:11px;font-weight:500;color:#3d2410">Pet Portrait Hoodie</div>
+            <div style="font-size:10px;color:#9c8269">Premium fleece · 4 colors</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $65</span>
+              <span class="star">★★★★★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT 2 -->
+        <div class="product-card" style="border-color:#8B5E3C">
+          <div style="background:#8B5E3C;text-align:center;padding:2px;font-size:8px;color:#fffaf5;font-weight:500">Most popular</div>
+          <div class="product-img" style="padding:0">
+            <img src="assets/sweater.jpg" alt="Pet Portrait Sweatshirt"
+                style="width:100%;height:auto;max-height:100%;object-fit:contain;display:block;margin:auto">
+          </div>
+          <div class="product-info">
+            <span class="tag">New</span>
+            <div style="font-size:11px;font-weight:500;color:#3d2410">Pet Portrait Sweatshirt</div>
+            <div style="font-size:10px;color:#9c8269">Heavyweight · 5 colors</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $58</span>
+              <span class="star">★★★★★</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT 3 -->
+        <div class="product-card">
+          <div class="product-img" style="padding:0">
+            <img src="assets/tote.jpg" alt="Pet Portrait Tote Bag"
+                style="width:100%;height:auto;max-height:100%;object-fit:contain;display:block;margin:auto">
+          </div>
+          <div class="product-info">
+            <span class="tag">Bundle deal</span>
+            <div style="font-size:11px;font-weight:500;color:#3d2410">Pet Portrait Tote Bag</div>
+            <div style="font-size:10px;color:#9c8269">Canvas · Everyday carry</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+              <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $35</span>
+              <span class="star">★★★★★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="customizer-section" style="background:#fdf8f3;border-top:0.5px solid #e0cdb5;border-bottom:0.5px solid #e0cdb5">
+    <div class="section-title">Start your custom order</div>
+    <div class="section-sub">See your pet embroidered before you pay — free mock-up included</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="customizer">
+          <div style="font-size:10px;font-weight:500;color:#5c3d1e;margin-bottom:8px">Step 1 — Upload your pet photo</div>
+          <div class="upload-zone">
+            <div style="font-size:22px;margin-bottom:4px">↑</div>
+            <div style="font-size:11px;color:#7a4e2d;font-weight:500">Click to upload</div>
+            <div style="font-size:9px;color:#b09070;margin-top:2px">JPG, PNG · Min 800px · Clear face shot</div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px">
+            <div style="flex:1;background:#e8f5e9;border-radius:4px;padding:4px;text-align:center;border:0.5px solid #a5d6a7">
+              <div style="font-size:8px;color:#2e7d32;font-weight:500">Good</div>
+              <img src="assets/good.jpg" style="width:100%;height:95%;object-fit:cover;border-radius:2px;margin-top:2px">
+            </div>
+            <div style="flex:1;background:#ffebee;border-radius:4px;padding:4px;text-align:center;border:0.5px solid #ef9a9a">
+              <div style="font-size:8px;color:#c62828;font-weight:500">Avoid</div>
+              <img src="assets/avoid.jpg" style="width:100%;height:95%;object-fit:cover;border-radius:2px;margin-top:2px">
+            </div>
+          </div>
+        </div>
+        <div class="customizer">
+          <div style="font-size:10px;font-weight:500;color:#5c3d1e;margin-bottom:8px">Step 2 — Choose product & color</div>
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <div class="prod-option active" style="background:#8B5E3C;color:#fffaf5" onclick="selectType(this)">Hoodie</div>
+            <div class="prod-option" style="background:#f5ede0;color:#7a4e2d;border:0.5px solid #d4b896" onclick="selectType(this)">Sweatshirt</div>
+            <div class="prod-option" style="background:#f5ede0;color:#7a4e2d;border:0.5px solid #d4b896" onclick="selectType(this)">Tote bag</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div class="color-swatch active" style="background:#2C2C2A;" onclick="toggleSwatch(this)"></div>
+            <div class="color-swatch" style="background:#d4b896;" onclick="toggleSwatch(this)"></div>
+            <div class="color-swatch" style="background:#b0bec5;" onclick="toggleSwatch(this)"></div>
+            <div class="color-swatch" style="background:#f0c4b4;" onclick="toggleSwatch(this)"></div>
+            <div class="color-swatch" style="background:#fffaf5;border:1px solid #d4b896" onclick="toggleSwatch(this)"></div>
+          </div>
+        </div>
+      </div>
+      <div class="customizer" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:200px">
+        <div style="font-size:10px;font-weight:500;color:#5c3d1e">Live preview</div>
+        <div style="width:100px;height:100px;border-radius:50%;background:#f5ede0;border:2px dashed #c4a07a;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:9px;color:#b09070;text-align:center">Awaiting<br>upload</span>
+        </div>
+        <div style="font-size:9px;color:#9c8269;text-align:center">Your embroidery preview<br>appears here instantly</div>
+        <div style="width:100%;background:#fbeee0;border-radius:6px;padding:8px;text-align:center;border:0.5px solid #d4a87a">
+          <div style="font-size:10px;color:#5c3d1e;font-weight:500">Total: $65.00</div>
+          <div style="font-size:8px;color:#9c8269">Free mock-up included</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;padding:10px" onclick="goToCheckout()">Add to cart →</button>
+        <div style="font-size:9px;color:#b09070;text-align:center">No charge until you approve the mock-up</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="reviews-section">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <div>
+        <div class="section-title">What pet lovers say</div>
+        <div class="section-sub">4.9 stars · 238 verified reviews</div>
+      </div>
+      <span style="font-size:11px;color:#8B5E3C;cursor:pointer">See all reviews →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div class="review-card">
+        <div class="star" style="margin-bottom:4px">★★★★★</div>
+        <div style="font-size:10px;color:#3d2410;margin-bottom:6px;line-height:1.4">"The detail on my dog's fur is incredible. I cried when I opened it."</div>
+        <div style="display:flex;gap:4px;margin-bottom:6px">
+          <div style="width:28px;height:28px;background:#d4b896;border-radius:3px"></div>
+          <div style="width:28px;height:28px;background:#8B5E3C;border-radius:3px"></div>
+        </div>
+        <div style="font-size:9px;font-weight:500;color:#5c3d1e">Sarah M.</div>
+        <div style="font-size:8px;color:#9c8269">Golden Retriever owner · US</div>
+      </div>
+      <div class="review-card">
+        <div class="star" style="margin-bottom:4px">★★★★★</div>
+        <div style="font-size:10px;color:#3d2410;margin-bottom:6px;line-height:1.4">"The mock-up process was so reassuring — I knew exactly what I'd get."</div>
+        <div style="font-size:9px;font-weight:500;color:#5c3d1e">Jake T.</div>
+        <div style="font-size:8px;color:#9c8269">British Shorthair owner · UK</div>
+      </div>
+      <div class="review-card">
+        <div class="star" style="margin-bottom:4px">★★★★★</div>
+        <div style="font-size:10px;color:#3d2410;margin-bottom:6px;line-height:1.4">"Ordered the hoodie + tote bundle. Both are stunning. Stitch quality is elite."</div>
+        <div style="font-size:9px;font-weight:500;color:#5c3d1e">Emma K.</div>
+        <div style="font-size:8px;color:#9c8269">French Bulldog owner · DE</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="how-we-work-section" style="border-top:0.5px solid #e0cdb5">
+    <div class="section-title">How we work?</div>
+    <div class="section-sub" style="color:#3d2410">Experience our seamless custom design process</div>
+    <div class="how-work-grid">
+      <div class="how-work-card">
+        <span class="how-work-icon">🛍️</span>
+        <h3>Choose PETVIBE Products</h3>
+        <p>We offer over 1,500 products in our catalog to meet your various needs. Select any product you like and unleash your creativity.</p>
+      </div>
+      <div class="how-work-card">
+        <span class="how-work-icon">✨</span>
+        <h3>Real-time Design and Preview</h3>
+        <p>Use our free elements or upload your own images and text to create and preview your exclusive products with our editor.</p>
+      </div>
+      <div class="how-work-card">
+        <span class="how-work-icon">📦</span>
+        <h3>PETVIBE Fulfills Your Orders</h3>
+        <p>When you receive orders, PETVIBE will handle order fulfillment, including printing, packing, and shipping to your customers.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="faq-section">
+    <div style="display:inline-block; background:#f5ede0; padding:5px 14px; border-radius:4px; font-size:13px; color:#5c3d1e; font-weight:700; margin-bottom:16px; letter-spacing:1px">FAQ</div>
+    
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFaq(this)">
+            <span class="faq-question">What kind of photo do I need to submit?</span>
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Use a clear, well-lit front-facing photo of your pet. Avoid blurry or cropped images — we need to see the full face and ears to create the best embroidery possible.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFaq(this)">
+            <span class="faq-question">Can I preview the design before it's embroidered?</span>
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Absolutely! After you place your order, our artist will digitize your pet's portrait and send you a free mock-up for approval via email before we start embroidering.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFaq(this)">
+            <span class="faq-question">How long does delivery take?</span>
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">We typically need 2–3 days to digitize and embroider your design, plus 3–5 days for shipping depending on your location. Total: around 5–7 days to your door.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFaq(this)">
+            <span class="faq-question">What if I'm not happy with the mock-up?</span>
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">No worries — we offer unlimited free revisions until you're 100% satisfied. If the design doesn't meet your expectations, we'll issue a full refund.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-header" onclick="toggleFaq(this)">
+            <span class="faq-question">Is the embroidery durable and long-lasting?</span>
+            <span class="faq-icon">+</span>
+        </div>
+        <div class="faq-answer">Yes! We use premium embroidery thread and industrial-grade machines to ensure your design stays vivid and intact through countless washes without fading or peeling.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#f5ede0;border-top:0.5px solid #e0cdb5;border-bottom:0.5px solid #e0cdb5;display:grid;grid-template-columns:repeat(4,1fr)">
+    <div class="trust-item" style="border-right:0.5px solid #e0cdb5">
+      <div style="font-size:16px;font-weight:500;color:#3d2410">100%</div>
+      <div style="font-size:9px;color:#7a4e2d;margin-top:2px">Approve before we sew</div>
+    </div>
+    <div class="trust-item" style="border-right:0.5px solid #e0cdb5">
+      <div style="font-size:16px;font-weight:500;color:#3d2410">5–7</div>
+      <div style="font-size:9px;color:#7a4e2d;margin-top:2px">Days to your door</div>
+    </div>
+    <div class="trust-item" style="border-right:0.5px solid #e0cdb5">
+      <div style="font-size:16px;font-weight:500;color:#3d2410">4.9★</div>
+      <div style="font-size:9px;color:#7a4e2d;margin-top:2px">Average rating</div>
+    </div>
+    <div class="trust-item">
+      <div style="font-size:16px;font-weight:500;color:#3d2410">Free</div>
+      <div style="font-size:9px;color:#7a4e2d;margin-top:2px">Mock-up on every order</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;margin-bottom:16px">
+      <div>
+        <div style="font-size:16px;font-weight:500;color:#fffaf5;letter-spacing:2px;margin-bottom:6px">PETVIBE</div>
+        <div style="font-size:10px;color:#c4a07a;line-height:1.6">Turning pet photos into wearable art.<br>Handcrafted embroidery for pet lovers in US & EU.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:500;color:#fffaf5;margin-bottom:8px">Shop</div>
+        <div style="font-size:10px;color:#c4a07a;line-height:2">Hoodies<br>Sweatshirts<br>Tote bags<br>Bundles</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:500;color:#fffaf5;margin-bottom:8px">Help</div>
+        <div style="font-size:10px;color:#c4a07a;line-height:2">How it works<br>FAQ<br>Shipping<br>Returns</div>
+      </div>
+    </div>
+    <div style="border-top:0.5px solid #5c3d1e;padding-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:9px;color:#9c8269">© 2026 PetVibe. All rights reserved.</div>
+      <div style="display:flex;gap:12px;font-size:9px;color:#9c8269">
+        <span>Privacy</span><span>Terms</span><span>Instagram</span><span>TikTok</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== EMAIL POPUP ===== -->
+<div id="email-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center">
+  <div style="background:#fffaf5;border-radius:16px;width:340px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:popIn 0.3s ease">
+    <div style="background:#3d2410;padding:24px;text-align:center;position:relative">
+      <div style="font-size:28px;margin-bottom:6px">🐾</div>
+      <div style="font-size:16px;font-weight:700;color:#fffaf5;letter-spacing:1px">Get 10% OFF your first order</div>
+      <div style="font-size:11px;color:#c4a07a;margin-top:4px">Join 1,200+ pet lovers. No spam, ever.</div>
+    </div>
+    <div id="popup-form" style="padding:20px">
+      <input id="popup-email" type="email" placeholder="Enter your email address" style="width:100%;padding:10px 12px;border:1px solid #e0cdb5;border-radius:8px;font-size:12px;color:#3d2410;background:#fff;outline:none;margin-bottom:10px;box-sizing:border-box">
+      <button onclick="submitPopupEmail()" style="width:100%;padding:11px;background:#8B5E3C;color:#fffaf5;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px">Claim My 10% Discount →</button>
+      <div style="text-align:center;margin-top:10px">
+        <span onclick="closePopup()" style="font-size:10px;color:#9c8269;cursor:pointer;text-decoration:underline">No thanks, I'll pay full price</span>
+      </div>
+    </div>
+    <div id="popup-thanks" style="display:none;padding:28px;text-align:center">
+      <div style="font-size:32px;margin-bottom:8px">🎉</div>
+      <div style="font-size:15px;font-weight:700;color:#3d2410;margin-bottom:6px">Thank you!</div>
+      <div style="font-size:11px;color:#7a4e2d;line-height:1.5">Your 10% discount code has been sent to your inbox. Check your email!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AI CHATBOX ===== -->
+<div id="chat-bubble" onclick="toggleChat()" style="position:fixed;bottom:24px;right:24px;z-index:999;width:52px;height:52px;background:#8B5E3C;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(61,36,16,0.4);transition:transform 0.2s" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+  <span id="chat-bubble-icon" style="font-size:22px">💬</span>
+  <div style="position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#e74c3c;border-radius:50%;border:2px solid #fffaf5;display:flex;align-items:center;justify-content:center;font-size:8px;color:white;font-weight:700">1</div>
+</div>
+
+<div id="chat-box" style="display:none;position:fixed;bottom:88px;right:24px;z-index:999;width:300px;background:#fffaf5;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);overflow:hidden;animation:slideUp 0.25s ease;border:0.5px solid #e0cdb5">
+  <!-- Header -->
+  <div style="background:#3d2410;padding:12px 14px;display:flex;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div style="width:32px;height:32px;background:#8B5E3C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">🐾</div>
+      <div>
+        <div style="font-size:12px;font-weight:600;color:#fffaf5">PetVibe Assistant</div>
+        <div style="font-size:9px;color:#a5845e;display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#4caf50;border-radius:50%;display:inline-block"></span>Online now</div>
+      </div>
+    </div>
+    <span onclick="toggleChat()" style="color:#c4a07a;cursor:pointer;font-size:18px;line-height:1">×</span>
+  </div>
+  <!-- Messages -->
+  <div id="chat-messages" style="padding:12px;height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:8px">
+    <div style="display:flex;gap:6px;align-items:flex-end">
+      <div style="width:24px;height:24px;background:#8B5E3C;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px">🐾</div>
+      <div style="background:#f5ede0;border-radius:12px 12px 12px 2px;padding:8px 10px;font-size:11px;color:#3d2410;max-width:210px;line-height:1.4">Hi! 👋 I'm here to help with your custom pet embroidery order. What can I help you with?</div>
+    </div>
+    <div style="display:flex;justify-content:flex-end">
+      <div style="background:#8B5E3C;border-radius:12px 12px 2px 12px;padding:8px 10px;font-size:11px;color:#fffaf5;max-width:200px;line-height:1.4">How long does embroidery take?</div>
+    </div>
+    <div style="display:flex;gap:6px;align-items:flex-end">
+      <div style="width:24px;height:24px;background:#8B5E3C;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px">🐾</div>
+      <div style="background:#f5ede0;border-radius:12px 12px 12px 2px;padding:8px 10px;font-size:11px;color:#3d2410;max-width:210px;line-height:1.4">Usually 2–3 days to digitize & embroider, then 3–5 days shipping. Total ~5–7 days to your door! 📦</div>
+    </div>
+  </div>
+  <!-- Quick replies -->
+  <div style="padding:6px 12px;display:flex;gap:6px;flex-wrap:wrap;border-top:0.5px solid #e0cdb5;background:#fdf8f3">
+    <span onclick="sendQuickReply(this,'What photo should I upload?')" style="font-size:9px;background:#fbeee0;color:#7a4e2d;border:0.5px solid #d4b896;border-radius:20px;padding:4px 8px;cursor:pointer">📷 Photo tips</span>
+    <span onclick="sendQuickReply(this,'How much does it cost?')" style="font-size:9px;background:#fbeee0;color:#7a4e2d;border:0.5px solid #d4b896;border-radius:20px;padding:4px 8px;cursor:pointer">💰 Pricing</span>
+    <span onclick="sendQuickReply(this,'Do you ship internationally?')" style="font-size:9px;background:#fbeee0;color:#7a4e2d;border:0.5px solid #d4b896;border-radius:20px;padding:4px 8px;cursor:pointer">🌍 Shipping</span>
+  </div>
+  <!-- Input -->
+  <div style="padding:10px 12px;display:flex;gap:6px;border-top:0.5px solid #e0cdb5">
+    <input id="chat-input" type="text" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChat()" style="flex:1;padding:8px 10px;border:1px solid #e0cdb5;border-radius:20px;font-size:11px;outline:none;background:#fff;color:#3d2410">
+    <button onclick="sendChat()" style="width:32px;height:32px;background:#8B5E3C;border:none;border-radius:50%;cursor:pointer;color:white;font-size:14px;display:flex;align-items:center;justify-content:center">↑</button>
+  </div>
+</div>
+
+<style>
+@keyframes popIn { from{opacity:0;transform:scale(0.85)} to{opacity:1;transform:scale(1)} }
+@keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+#popup-email:focus { border-color:#8B5E3C; }
+</style>
+
+<script>
+function toggleFaq(element) {
+  const item = element.parentElement;
+  document.querySelectorAll('.faq-item').forEach(i => {
+    if (i !== item) i.classList.remove('active');
+  });
+  item.classList.toggle('active');
+}
+
+// Hàm chọn màu sắc (swatches)
+function toggleSwatch(element) {
+    const parent = element.parentElement;
+    parent.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    element.classList.add('active');
+}
+
+// === EMAIL POPUP ===
+function closePopup() {
+  document.getElementById('email-overlay').style.display = 'none';
+}
+function submitPopupEmail() {
+  const email = document.getElementById('popup-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('popup-email').style.borderColor = '#e74c3c';
+    return;
+  }
+  document.getElementById('popup-form').style.display = 'none';
+  document.getElementById('popup-thanks').style.display = 'block';
+  setTimeout(closePopup, 2200);
+}
+// Show popup after 2.5s
+setTimeout(() => {
+  document.getElementById('email-overlay').style.display = 'flex';
+}, 2500);
+
+// === CHATBOX ===
+function toggleChat() {
+  const box = document.getElementById('chat-box');
+  const dot = document.querySelector('#chat-bubble div');
+  box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  if (dot) dot.style.display = 'none';
+}
+
+const chatReplies = {
+  'What photo should I upload?': "Clear, well-lit front-facing shots work best! Avoid blurry or cropped photos. Min 800px wide. 🐕",
+  'How much does it cost?': "Hoodies from $65, Sweatshirts from $58, Tote bags from $35. Free mock-up on every order! 🎨",
+  'Do you ship internationally?': "Yes! We ship to the US & EU. Delivery takes 5–7 days total. Free shipping on orders over $75 📦",
+};
+
+function sendQuickReply(el, text) {
+  appendMessage(text, 'user');
+  setTimeout(() => {
+    appendMessage(chatReplies[text] || "Great question! Our team will get back to you shortly.", 'bot');
+  }, 600);
+}
+
+function sendChat() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  appendMessage(text, 'user');
+  input.value = '';
+  setTimeout(() => {
+    appendMessage("Thanks for your message! Our team will reply shortly. In the meantime, feel free to browse our FAQ 😊", 'bot');
+  }, 700);
+}
+
+function appendMessage(text, sender) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;gap:6px;align-items:flex-end;' + (sender === 'user' ? 'justify-content:flex-end' : '');
+  if (sender === 'bot') {
+    div.innerHTML = `<div style="width:24px;height:24px;background:#8B5E3C;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px">🐾</div><div style="background:#f5ede0;border-radius:12px 12px 12px 2px;padding:8px 10px;font-size:11px;color:#3d2410;max-width:210px;line-height:1.4">${text}</div>`;
+  } else {
+    div.innerHTML = `<div style="background:#8B5E3C;border-radius:12px 12px 2px 12px;padding:8px 10px;font-size:11px;color:#fffaf5;max-width:200px;line-height:1.4">${text}</div>`;
+  }
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+// Hàm chọn loại sản phẩm (Step 2)
+function selectType(element) {
+    const parent = element.parentElement;
+    parent.querySelectorAll('.prod-option').forEach(opt => {
+        opt.classList.remove('active');
+        opt.style.background = "#f5ede0";
+        opt.style.color = "#7a4e2d";
+    });
+    element.classList.add('active');
+    element.style.background = "#8B5E3C";
+    element.style.color = "#fffaf5";
+}
+</script>
+
+<!-- ===== CHECKOUT PAGE (hidden by default) ===== -->
+<div id="checkout-page" style="display:none">
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  .co { --brown:#2C1A0E;--brown-mid:#5C3B1E;--caramel:#A0622A;--sand:#D4B896;--cream:#F5EFE6;--cream-deep:#EDE4D6;--white:#FDFAF6;--text:#2C1A0E;--text-muted:#8B6A4E;--border:#D9CBBA;--accent:#7B4F2E;--success:#4A7C59;--radius:8px;--radius-lg:12px; font-family:'DM Sans',sans-serif; }
+  .co * { box-sizing:border-box; margin:0; padding:0; }
+  /* Header — scale kế thừa từ .pg (border-radius 12px, không overflow) */
+  .co .co-header { background:var(--brown);padding:0 20px;height:44px;display:flex;align-items:center;justify-content:space-between; }
+  .co .back-btn { display:flex;align-items:center;gap:6px;color:#fffaf5;font-family:system-ui,-apple-system,sans-serif;font-size:16px;font-weight:500;letter-spacing:2px;cursor:pointer;border:none;background:none;transition:opacity .2s; }
+  .co .back-btn:hover { opacity:.7; }
+  .co .back-btn svg { width:14px;height:14px;flex-shrink:0; }
+  .co .header-secure { display:flex;align-items:center;gap:5px;font-size:10px;color:var(--sand);opacity:.8; }
+  .co .header-secure svg { width:11px;height:11px; }
+  /* 2-col layout, right panel fixed-width thu nhỏ lại */
+  .co .co-page { display:grid;grid-template-columns:1fr 280px; }
+  .co .form-side { padding:20px 24px;background:var(--white);border-right:1px solid var(--border); }
+  .co .summary-side { padding:20px;background:var(--cream-deep); }
+  /* Express checkout */
+  .co .express-label { text-align:center;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px; }
+  .co .express-btns { display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:14px; }
+  .co .express-btn { height:32px;border-radius:var(--radius);border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .15s,transform .1s;font-size:10px;font-weight:500;gap:4px; }
+  .co .express-btn:hover { border-color:var(--caramel);transform:translateY(-1px); }
+  .co .express-btn.shop { background:#5A31F4;color:#fff;border-color:#5A31F4; }
+  .co .express-btn.paypal { background:#FFC439;border-color:#FFC439;color:#003087; }
+  .co .express-btn.gpay { background:#000;border-color:#000;color:#fff; }
+  .co .co-divider { text-align:center;font-size:10px;color:var(--text-muted);margin:12px 0 18px;display:flex;align-items:center;gap:10px; }
+  .co .co-divider::before,.co .co-divider::after { content:'';flex:1;height:1px;background:var(--border); }
+  /* Section titles */
+  .co .sec-title { font-family:'Playfair Display',serif;font-size:13px;font-weight:400;color:var(--brown);margin-bottom:10px;display:flex;align-items:center;justify-content:space-between; }
+  .co .sec-title a { font-family:'DM Sans',sans-serif;font-size:10px;color:var(--caramel);text-decoration:none;font-weight:400; }
+  .co .sec-title a:hover { text-decoration:underline; }
+  .co .co-section { margin-bottom:18px; }
+  .co .co-field { position:relative;margin-bottom:7px; }
+  .co .field-row { display:grid;gap:7px;margin-bottom:7px; }
+  .co .field-row.col2 { grid-template-columns:1fr 1fr; }
+  .co .field-row.col3 { grid-template-columns:1fr 1fr 1fr; }
+  /* Inputs — tất cả scale nhỏ lại */
+  .co input[type=text],.co input[type=email],.co input[type=tel],.co select { width:100%;height:34px;padding:0 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);font-family:'DM Sans',sans-serif;font-size:11px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;appearance:none; }
+  .co input::placeholder { color:var(--text-muted);opacity:.7; }
+  .co input:focus,.co select:focus { border-color:var(--caramel);box-shadow:0 0 0 2px rgba(160,98,42,.1); }
+  .co .select-wrap { position:relative; }
+  .co .select-wrap::after { content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid var(--text-muted);pointer-events:none; }
+  .co .check-row { display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text-muted);margin:7px 0;cursor:pointer; }
+  .co .check-row input[type=checkbox] { width:13px;height:13px;accent-color:var(--caramel);cursor:pointer;flex-shrink:0;margin:0;padding:0;border:none; }
+  .co .ship-placeholder { background:var(--cream-deep);border:1px dashed var(--border);border-radius:var(--radius);padding:10px 12px;font-size:10px;color:var(--text-muted);text-align:center; }
+  /* Payment */
+  .co .pay-opts { display:flex;flex-direction:column;gap:0; }
+  .co .pay-opt { border:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:9px;cursor:pointer;transition:background .12s;font-size:11px;background:var(--white); }
+  .co .pay-opt:first-child { border-radius:var(--radius) var(--radius) 0 0; }
+  .co .pay-opt:last-child { border-radius:0 0 var(--radius) var(--radius); }
+  .co .pay-opt+.pay-opt { border-top:none; }
+  .co .pay-opt.active { background:rgba(160,98,42,.06);border-color:var(--caramel); }
+  .co .pay-opt input[type=radio] { accent-color:var(--caramel);width:13px;height:13px;flex-shrink:0;margin:0;padding:0;border:none; }
+  .co .pay-opt-label { flex:1;font-weight:400; }
+  .co .card-logos { display:flex;gap:4px;align-items:center; }
+  .co .card-logo { height:17px;border-radius:3px;border:1px solid var(--border);padding:1px 4px;font-size:8px;font-weight:600;display:flex;align-items:center; }
+  .co .card-logo.visa { color:#1A1F71; }
+  .co .card-logo.mc { color:#EB001B; }
+  .co .card-logo.amex { color:#006FCF; }
+  .co .card-fields { border:1px solid var(--caramel);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:12px;background:rgba(160,98,42,.03);display:none; }
+  .co .card-fields.visible { display:block; }
+  /* Policy */
+  .co .policy-notice { background:rgba(160,98,42,.07);border:1px solid rgba(160,98,42,.22);border-radius:var(--radius);padding:10px 12px;font-size:10px;color:var(--accent);line-height:1.5;margin-bottom:10px; }
+  .co .policy-notice strong { font-weight:500; }
+  /* Tip */
+  .co .tip-box { border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px;background:var(--white);margin-bottom:10px; }
+  .co .tip-title { font-size:11px;font-weight:500;margin-bottom:3px;display:flex;align-items:center;gap:5px; }
+  .co .tip-sub { font-size:10px;color:var(--text-muted);margin-bottom:10px; }
+  .co .tip-options { display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px; }
+  .co .tip-btn { border:1px solid var(--border);border-radius:var(--radius);padding:6px 3px;text-align:center;font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer;background:var(--white);transition:border-color .12s,background .12s;line-height:1.4; }
+  .co .tip-btn .pct { font-weight:500;font-size:11px; }
+  .co .tip-btn .amt { color:var(--text-muted);font-size:9px; }
+  .co .tip-btn:hover { border-color:var(--caramel); }
+  .co .tip-btn.selected { border-color:var(--caramel);background:rgba(160,98,42,.08); }
+  .co .tip-note { font-size:9px;color:var(--text-muted);line-height:1.5; }
+  /* Pay button */
+  .co .pay-btn { width:100%;height:40px;background:var(--brown);color:var(--cream);border:none;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:.03em;cursor:pointer;margin-top:16px;transition:background .15s,transform .1s;display:flex;align-items:center;justify-content:center;gap:6px; }
+  .co .pay-btn:hover { background:var(--brown-mid);transform:translateY(-1px); }
+  .co .footer-links { display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;justify-content:center; }
+  .co .footer-links a { font-size:9px;color:var(--text-muted);text-decoration:none; }
+  .co .footer-links a:hover { color:var(--caramel); }
+  /* Order summary right panel */
+  .co .order-item { display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border); }
+  /* Fix viền hoodie: dùng outline thay vì border để tránh bị overflow:hidden cắt mất */
+  .co .item-img { width:48px;height:48px;border-radius:var(--radius);background:var(--cream);outline:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;position:relative; }
+  .co .item-badge { position:absolute;top:-5px;right:-5px;width:16px;height:16px;background:var(--brown);color:var(--cream);border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500; }
+  .co .item-info { flex:1; }
+  .co .item-name { font-size:11px;font-weight:500;margin-bottom:2px; }
+  .co .item-variant { font-size:10px;color:var(--text-muted); }
+  .co .item-price { font-size:12px;font-weight:500; }
+  .co .discount-row { display:flex;gap:6px;margin-bottom:14px; }
+  .co .discount-row input { flex:1;height:32px; }
+  .co .discount-row button { height:32px;padding:0 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--white);font-family:'DM Sans',sans-serif;font-size:10px;font-weight:500;color:var(--text);cursor:pointer;white-space:nowrap;transition:border-color .12s,background .12s; }
+  .co .discount-row button:hover { border-color:var(--caramel);background:var(--cream); }
+  .co .totals { margin-top:4px; }
+  .co .total-row { display:flex;justify-content:space-between;font-size:11px;padding:5px 0;color:var(--text-muted); }
+  .co .total-row.bold { color:var(--text);font-weight:500;font-size:13px;border-top:1px solid var(--border);margin-top:6px;padding-top:10px; }
+  .co .total-row .currency { font-size:9px;color:var(--text-muted);margin-right:3px; }
+  .co .free-ship { display:inline-block;background:rgba(74,124,89,.12);color:var(--success);font-size:9px;font-weight:500;padding:1px 6px;border-radius:20px;margin-left:4px; }
+  .co .trust-badges { display:flex;flex-direction:column;gap:6px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border); }
+  .co .trust-badge { display:flex;align-items:center;gap:7px;font-size:10px;color:var(--text-muted); }
+  .co .trust-icon { width:22px;height:22px;background:var(--cream);border:1px solid var(--border);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0; }
+</style>
+
+<div class="co">
+  <header class="co-header">
+    <button class="back-btn" onclick="goBack()">
+      <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4L6 9l5 5"/></svg>
+      PETVIBE
+    </button>
+    <div class="header-secure">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
+      Secure checkout
+    </div>
+  </header>
+
+  <div class="co-page">
+    <div class="form-side">
+      <div class="express-label">Express checkout</div>
+      <div class="express-btns">
+        <button class="express-btn shop">🛍 Shop Pay</button>
+        <button class="express-btn paypal">PayPal</button>
+        <button class="express-btn gpay">G Pay</button>
+      </div>
+      <div class="co-divider">or pay with card</div>
+
+      <div class="co-section">
+        <div class="sec-title">Contact <a href="#">Sign in</a></div>
+        <div class="co-field"><input type="email" placeholder="Email address"/></div>
+        <label class="check-row"><input type="checkbox" checked/>Keep me updated with order news and offers</label>
+      </div>
+
+      <div class="co-section">
+        <div class="sec-title">Delivery</div>
+        <div class="co-field select-wrap">
+          <select><option>United States</option><option>United Kingdom</option><option>Germany</option><option>France</option><option>Netherlands</option></select>
+        </div>
+        <div class="field-row col2">
+          <input type="text" placeholder="First name"/>
+          <input type="text" placeholder="Last name"/>
+        </div>
+        <div class="co-field"><input type="text" placeholder="Address"/></div>
+        <div class="co-field"><input type="text" placeholder="Apartment, suite, etc. (optional)"/></div>
+        <div class="field-row col3">
+          <input type="text" placeholder="City"/>
+          <div class="select-wrap"><select><option value="">State</option><option>CA</option><option>NY</option><option>TX</option></select></div>
+          <input type="text" placeholder="ZIP code"/>
+        </div>
+        <div class="co-field"><input type="tel" placeholder="Phone (optional)"/></div>
+        <label class="check-row"><input type="checkbox"/>Text me with news and offers</label>
+      </div>
+
+      <div class="co-section">
+        <div class="sec-title">Shipping method</div>
+        <div class="ship-placeholder">Enter your shipping address to view available shipping methods</div>
+      </div>
+
+      <div class="co-section">
+        <div class="sec-title">Payment</div>
+        <div class="pay-opts">
+          <label class="pay-opt active" onclick="coShowCard(true,this)">
+            <input type="radio" name="copay" value="card" checked/>
+            <span class="pay-opt-label">Credit card</span>
+            <div class="card-logos">
+              <span class="card-logo visa">VISA</span>
+              <span class="card-logo mc">MC</span>
+              <span class="card-logo amex">AMEX</span>
+            </div>
+          </label>
+          <div class="card-fields visible" id="coCardFields">
+            <div class="co-field"><input type="text" placeholder="Card number"/></div>
+            <div class="field-row col2">
+              <input type="text" placeholder="Expiration (MM / YY)"/>
+              <input type="text" placeholder="Security code"/>
+            </div>
+            <div class="co-field"><input type="text" placeholder="Name on card"/></div>
+            <label class="check-row"><input type="checkbox" checked/>Use shipping address as billing address</label>
+          </div>
+          <label class="pay-opt" onclick="coShowCard(false,this)">
+            <input type="radio" name="copay" value="shoppay"/>
+            <span class="pay-opt-label">Shop Pay · Pay in full or installments</span>
+          </label>
+          <label class="pay-opt" onclick="coShowCard(false,this)">
+            <input type="radio" name="copay" value="paypal"/>
+            <span class="pay-opt-label">PayPal</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="policy-notice">
+        <strong>Mock-up approval policy:</strong> We'll email your free embroidery preview within 24 hours. Please approve it within <strong>48 hours</strong> — if we don't hear back, production begins automatically.
+        <label class="check-row" style="margin-top:8px;color:#7B4F2E">
+          <input type="checkbox" id="coPolicyCheck"/>
+          I understand and agree to the mock-up approval policy
+        </label>
+      </div>
+
+      <div class="co-section">
+        <div class="tip-box">
+          <div class="tip-title">Tip our artist 🎨</div>
+          <div class="tip-sub">Your tip goes directly to the artisan who hand-embroiders your item.</div>
+          <div class="tip-options">
+            <button class="tip-btn" onclick="coSelectTip(this)"><div class="pct">10%</div><div class="amt">$5.99</div></button>
+            <button class="tip-btn" onclick="coSelectTip(this)"><div class="pct">15%</div><div class="amt">$8.99</div></button>
+            <button class="tip-btn" onclick="coSelectTip(this)"><div class="pct">20%</div><div class="amt">$11.99</div></button>
+            <button class="tip-btn selected" onclick="coSelectTip(this)"><div class="pct">None</div></button>
+          </div>
+          <div class="tip-note">100% of your tip goes to the artisan. It means the world to them. ❤️</div>
+        </div>
+      </div>
+
+      <button class="pay-btn" onclick="coHandlePay()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="5" width="12" height="9" rx="2"/><path d="M5 5V4a3 3 0 016 0v1"/></svg>
+        Pay now · $65.00
+      </button>
+
+      <div class="footer-links">
+        <a href="#">Refund policy</a>
+        <a href="#">Shipping policy</a>
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms of service</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+
+    <div class="summary-side">
+      <div class="order-item">
+        <div class="item-img">🐾<div class="item-badge">1</div></div>
+        <div class="item-info">
+          <div class="item-name">Pet Portrait Hoodie</div>
+          <div class="item-variant">Premium fleece · Caramel · Size M</div>
+        </div>
+        <div class="item-price">$65.00</div>
+      </div>
+      <div class="discount-row">
+        <input type="text" placeholder="Discount code"/>
+        <button>Apply</button>
+      </div>
+      <div class="totals">
+        <div class="total-row"><span>Subtotal</span><span>$65.00</span></div>
+        <div class="total-row"><span>Shipping <span class="free-ship">FREE over $75</span></span><span style="color:#8B6A4E;font-size:13px">Enter address</span></div>
+        <div class="total-row bold"><span>Total</span><span><span class="currency">USD</span>$65.00</span></div>
+      </div>
+      <div class="trust-badges">
+        <div class="trust-badge"><div class="trust-icon">🔒</div><span>256-bit SSL encryption · All transactions are secure</span></div>
+        <div class="trust-badge"><div class="trust-icon">✅</div><span>100% approve before we sew — free mock-up included</span></div>
+        <div class="trust-badge"><div class="trust-icon">🚚</div><span>Free shipping on orders over $75 · Ships US & EU</span></div>
+        <div class="trust-badge"><div class="trust-icon">⭐</div><span>4.9★ · 238 verified reviews · Handcrafted with love</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- end #checkout-page -->
+
+<script>
+function goToCheckout() {
+  document.getElementById('checkout-page').style.display = 'block';
+  document.querySelector('.pg').style.display = 'none';
+  // hide floating elements on checkout
+  document.getElementById('chat-bubble').style.display = 'none';
+  document.getElementById('chat-box').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goBack() {
+  document.getElementById('checkout-page').style.display = 'none';
+  document.querySelector('.pg').style.display = 'block';
+  document.getElementById('chat-bubble').style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function coShowCard(show, el) {
+  document.getElementById('coCardFields').classList.toggle('visible', show);
+  document.querySelectorAll('.pay-opt').forEach(e => e.classList.remove('active'));
+  el.classList.add('active');
+}
+function coSelectTip(btn) {
+  document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+function coHandlePay() {
+  const policy = document.getElementById('coPolicyCheck');
+  if (!policy.checked) {
+    policy.closest('.policy-notice').style.borderColor = '#c0392b';
+    policy.closest('.policy-notice').style.background = 'rgba(192,57,43,0.07)';
+    policy.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  alert('Processing payment...');
+}
+</script>
+
+</body>
+</html>
