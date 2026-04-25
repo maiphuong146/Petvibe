@@ -445,6 +445,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   </div>
 
 </div>
+</div>
 
 <!-- ===== EMAIL POPUP ===== -->
 <div id="email-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center">
@@ -867,21 +868,13 @@ function selectType(element) {
     </div>
   </div>
 </div>
-</div><!-- end #checkout-page -->
+<!-- end #checkout-page -->
 
 <script>
 function goToCheckout() {
   document.getElementById('checkout-page').style.display = 'block';
   document.querySelector('.pg').style.display = 'none';
   // hide floating elements on checkout
-  const sectionsToHide = ['section', 'footer', '.reviews-container', '.faq-section']; 
-  sectionsToHide.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      if (el.id !== 'checkout-page') { // Không ẩn chính nó
-          el.style.display = 'none';
-      }
-    });
-  });
   document.getElementById('chat-bubble').style.display = 'none';
   document.getElementById('chat-box').style.display = 'none';
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -889,12 +882,6 @@ function goToCheckout() {
 function goBack() {
   document.getElementById('checkout-page').style.display = 'none';
   document.querySelector('.pg').style.display = 'block';
-  const sectionsToShow = ['section', 'footer', '.reviews-container', '.faq-section'];
-  sectionsToShow.forEach(selector => {
-    document.querySelectorAll(selector).forEach(el => {
-      el.style.display = ''; // Trả về mặc định (block/flex/grid)
-    });
-  });
   document.getElementById('chat-bubble').style.display = 'flex';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
