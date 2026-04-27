@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PETVIBE — Custom Pet Embroidery</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%235c3d1e'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-size='38'>🐾</text></svg>">
 <style>
 /* GIỮ NGUYÊN CSS GỐC */
 *{box-sizing:border-box;margin:0;padding:0}
@@ -18,20 +16,138 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
 .nav-right{display:flex;gap:12px;font-size:11px;color:#7a4e2d;align-items:center}
 .btn{border-radius:6px;cursor:pointer;font-size:11px;font-weight:500;padding:7px 16px;border:none}
 .btn-primary{background:#8B5E3C;color:#fffaf5}
-.btn-outline{background:transparent;color:#8B5E3C;border:1px solid #8B5E3C}
+.btn-outline{background:transparent;color:#d4b896;border:1px solid #d4b896}
 .btn-white{background:#fffaf5;color:#3d2410}
-.hero{background:#3d2410;padding:36px 24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;min-height:220px}
+/* ===== WRAPPER (ẢNH + OVERLAY) ===== */
+.hero-wrapper{
+  position:relative;
+  min-height:340px;
+
+  /* 👉 HIỂN THỊ FULL ẢNH */
+  background:url('assets/background.jpg') center 30% / 100% no-repeat;
+
+  /* 👉 thêm nền fallback cho phần dư */
+  background-color:#2b1808;
+}
+
+
+/* 👉 OVERLAY: càng sang phải càng đậm + rộng */
+.hero-wrapper::before{
+  content:'';
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    to right,
+
+    /* 👈 TRÁI (đậm nhất) */
+    rgba(40,20,5,0.95) 0%,
+    rgba(40,20,5,0.85) 20%,
+
+    /* 👉 PHỦ MỜ TOÀN BỘ (không còn vùng sáng) */
+    rgba(40,20,5,0.55) 50%,
+
+    /* 👉 PHẢI (nhạt hơn trái nhưng vẫn đậm dần) */
+    rgba(40,20,5,0.7) 75%,
+    rgba(40,20,5,0.8) 100%
+  );
+
+  z-index:0;
+}
+/* ===== HERO ===== */
+.hero{
+  background:transparent;
+  padding:36px 24px;
+  display:grid;
+  grid-template-columns:1fr;
+  min-height:260px;
+  position:relative;
+  z-index:1;
+}
+
 .hero-content{
   padding-left:80px;
+  max-width:60%;
 }
-.hero-badge{display:inline-block;background:#8B5E3C;color:#f5ede0;font-size:9px;padding:3px 10px;border-radius:20px;margin-bottom:10px;letter-spacing:0.5px}
-.hero-title{font-size:22px;font-weight:500;color:#fffaf5;line-height:1.25;margin-bottom:8px}
-.hero-sub{font-size:11px;color:#c4a07a;margin-bottom:16px;line-height:1.5}
-.hero-visual{background:#5c3d1e;border-radius:12px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border:0.5px solid #8B5E3C;padding:16px}
-.steps-bar{display:flex;background:#fbeee0;border-bottom:0.5px solid #e0cdb5}
-.step-item{flex:1;text-align:center;padding:10px 4px;border-right:0.5px solid #e0cdb5}
-.step-item:last-child{border-right:none}
-.step-num{width:20px;height:20px;border-radius:50%;background:#8B5E3C;color:white;font-size:9px;font-weight:500;display:flex;align-items:center;justify-content:center;margin:0 auto 4px}
+
+/* ===== TEXT ===== */
+.hero-badge{
+  display:inline-block;
+  background:#8B5E3C;
+  color:#f5ede0;
+  font-size:9px;
+  padding:3px 10px;
+  border-radius:20px;
+  margin-bottom:10px;
+  letter-spacing:0.5px;
+}
+
+.hero-title{
+  font-size:22px;
+  font-weight:500;
+  color:#fffaf5;
+  line-height:1.25;
+  margin-bottom:8px;
+}
+
+.hero-sub{
+  font-size:11px;
+  color:#e8c898;
+  margin-bottom:16px;
+  line-height:1.5;
+}
+
+/* ===== STEPS ===== */
+.steps-bar{
+  display:flex;
+  border-top:none;
+  background:transparent;
+  position:relative;
+  z-index:1;
+}
+
+/* 👉 ITEM */
+.step-item{
+  flex:1;
+  text-align:center;
+  padding:12px 4px;
+  color:#fffaf5;
+  font-size:9px;
+  position:relative;
+}
+
+/* 👉 GẠCH DỌC GIỮA CÁC STEP */
+.step-item:not(:last-child)::after{
+  content:'';
+  position:absolute;
+  top:50%;
+  right:0;
+
+  width:1px;
+  height:24px;
+  background:rgb(229, 208, 188);
+}
+
+/* 👉 TEXT SUB */
+.step-item div:last-child{
+  font-size:8px;
+  color:#d4b896;
+}
+
+/* 👉 NUMBER */
+.step-num{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#8B5E3C;
+  color:white;
+  font-size:9px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 4px;
+}
 .section{padding:24px}
 .section-title{font-size:16px;font-weight:500;color:#3d2410;margin-bottom:4px}
 .section-sub{font-size:10px;color:#9c8269;margin-bottom:16px}
@@ -71,6 +187,11 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
 .faq-item{border:0.5px solid #e0cdb5;border-radius:8px;margin-bottom:10px;overflow:hidden;background:#fff;transition:all 0.2s}
 .faq-header{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
 .faq-item:hover{border-color:#3d2410}
+.size-btn{padding:4px 8px;border-radius:5px;font-size:9px;font-weight:500;cursor:pointer;background:#f5ede0;color:#7a4e2d;border:0.5px solid #d4b896;transition:all 0.15s;user-select:none}
+.size-btn:hover{background:#e8d5be}
+.size-btn.active-size{background:#8B5E3C;color:#fffaf5;border-color:#8B5E3C}
+#sizechart-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;cursor:pointer}
+#sizechart-popup img{max-width:88%;max-height:88vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
 .faq-question{font-size:12px;color:#3d2410;font-weight:500}
 .faq-icon{font-size:12px;color:#9c8269;transition: transform 0.3s}
 .faq-answer{max-height:0;overflow:hidden;padding:0 20px;font-size:11px;color:#5c3d1e;line-height:1.5;transition: max-height 0.3s ease-out, padding 0.3s ease;}
@@ -91,7 +212,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   <div class="topbar">Free shipping on orders over $75 · Ships to US & EU · Handcrafted with love</div>
 
   <div class="nav">
-    <span class="logo">PETVIBE</span>
+    <img src="assets/PetVibe.png" alt="PETVIBE" style="height:32px;object-fit:contain;display:block">
     <div class="nav-links">
       <span onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Shop</span>
       <span onclick="document.getElementById('how-we-work-section').scrollIntoView({behavior:'smooth'})">How it works</span>
@@ -106,13 +227,15 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
     </div>
   </div>
 
+  <div class="hero-wrapper">
+
   <div class="hero">
     <div class="hero-content">
       
       <span class="hero-badge">Custom Embroidery · Wearable Art</span>
       
       <div class="hero-title">
-        Turn your pet into<br>a wearable masterpiece
+        WEAR YOUR CALM<br>"A quiet touch can do so much"
       </div>
 
       <div class="hero-sub">
@@ -121,11 +244,12 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
       </div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-white" onclick="document.getElementById('customizer-section').scrollIntoView({behavior:'smooth'})">
+        <button class="btn btn-white"
+          onclick="document.getElementById('customizer-section').scrollIntoView({behavior:'smooth'})">
           <strong>Customize now</strong> →
         </button>
 
-        <button class="btn btn-outline" style="color:#c4a07a;border-color:#c4a07a"
+        <button class="btn btn-outline"
           onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">
           See gallery
         </button>
@@ -147,53 +271,52 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
           approve before we sew
         </div>
       </div>
+
+    </div>
     </div>
 
-    <div class="hero-visual" style="padding:0;border-radius:12px;overflow:hidden;min-height:160px">
-      <img src="assets/ava.png" alt="Your pet"
-          style="width:100%;height:100%;object-fit:cover;display:block;min-height:160px">
+    <div class="steps-bar">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div>Upload photo</div>
+        <div>Your pet</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div>We digitize</div>
+        <div>Stitch by stitch</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div>You approve</div>
+        <div>Free mock-up</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">4</div>
+        <div>We embroider</div>
+        <div>Premium quality</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">5</div>
+        <div>Delivered</div>
+        <div>5–7 days</div>
+      </div>
     </div>
-  </div>
 
-  <div class="steps-bar">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div style="font-size:9px;font-weight:500;color:#3d2410">Upload photo</div>
-      <div style="font-size:8px;color:#9c8269">Your pet</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div style="font-size:9px;font-weight:500;color:#3d2410">We digitize</div>
-      <div style="font-size:8px;color:#9c8269">Stitch by stitch</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div style="font-size:9px;font-weight:500;color:#3d2410">You approve</div>
-      <div style="font-size:8px;color:#9c8269">Free mock-up</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">4</div>
-      <div style="font-size:9px;font-weight:500;color:#3d2410">We embroider</div>
-      <div style="font-size:8px;color:#9c8269">Premium quality</div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">5</div>
-      <div style="font-size:9px;font-weight:500;color:#3d2410">Delivered</div>
-      <div style="font-size:8px;color:#9c8269">5–7 days</div>
-    </div>
-  </div>
+  </div><!-- end shared background wrapper -->
 
   <div class="section" id="products-section">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <div>
-        <div class="section-title">Our products</div>
+        <div class="section-title">OUR PRODUCTS</div>
         <div class="section-sub" style="color:#3d2410">All embroidered from your pet photo</div>
       </div>
       <span style="font-size:11px;color:#3d2410;font-weight:500;cursor:pointer">View all →</span>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
         <!-- PRODUCT 1 -->
-        <div class="product-card">
+        <div class="product-card" style="display:flex;flex-direction:column">
+          <div style="background:transparent;text-align:center;padding:2px;font-size:8px;color:transparent;font-weight:500;visibility:hidden">placeholder</div>
           <div class="product-img" style="padding:0">
             <img src="assets/hoodie.jpg" alt="Pet Portrait Hoodie"
                 style="width:100%;height:auto;max-height:100%;object-fit:contain;display:block;margin:auto">
@@ -204,13 +327,13 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
             <div style="font-size:10px;color:#9c8269">Premium fleece · 4 colors</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
               <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $65</span>
-              <span class="star">★★★★★</span>
+              <span style="font-size:10px;font-weight:600;color:#8B5E3C;text-decoration:underline;cursor:pointer">SHOP NOW</span>
             </div>
           </div>
         </div>
 
         <!-- PRODUCT 2 -->
-        <div class="product-card" style="border-color:#8B5E3C">
+        <div class="product-card" style="border-color:#8B5E3C;display:flex;flex-direction:column">
           <div style="background:#8B5E3C;text-align:center;padding:2px;font-size:8px;color:#fffaf5;font-weight:500">Most popular</div>
           <div class="product-img" style="padding:0">
             <img src="assets/sweater.jpg" alt="Pet Portrait Sweatshirt"
@@ -222,13 +345,14 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
             <div style="font-size:10px;color:#9c8269">Heavyweight · 5 colors</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
               <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $58</span>
-              <span class="star">★★★★★</span>
+              <span style="font-size:10px;font-weight:600;color:#8B5E3C;text-decoration:underline;cursor:pointer">SHOP NOW</span>
             </div>
           </div>
         </div>
 
         <!-- PRODUCT 3 -->
-        <div class="product-card">
+        <div class="product-card" style="display:flex;flex-direction:column">
+          <div style="background:transparent;text-align:center;padding:2px;font-size:8px;color:transparent;font-weight:500;visibility:hidden">placeholder</div>
           <div class="product-img" style="padding:0">
             <img src="assets/tote.jpg" alt="Pet Portrait Tote Bag"
                 style="width:100%;height:auto;max-height:100%;object-fit:contain;display:block;margin:auto">
@@ -239,7 +363,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
             <div style="font-size:10px;color:#9c8269">Canvas · Everyday carry</div>
             <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
               <span style="font-size:12px;font-weight:500;color:#5c3d1e">From $35</span>
-              <span class="star">★★★★★</span>
+              <span style="font-size:10px;font-weight:600;color:#8B5E3C;text-decoration:underline;cursor:pointer">SHOP NOW</span>
             </div>
           </div>
         </div>
@@ -248,7 +372,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   </div>
 
   <div class="section" id="customizer-section" style="background:#fdf8f3;border-top:0.5px solid #e0cdb5;border-bottom:0.5px solid #e0cdb5">
-    <div class="section-title">Start your custom order</div>
+    <div class="section-title" style="font-size:16px">START YOUR CUSTOM ORDER</div>
     <div class="section-sub">See your pet embroidered before you pay — free mock-up included</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
       <div style="display:flex;flex-direction:column;gap:10px">
@@ -285,6 +409,21 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
             <div class="color-swatch" style="background:#fffaf5;border:1px solid #d4b896" onclick="toggleSwatch(this)"></div>
           </div>
         </div>
+        <div class="customizer">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-size:10px;font-weight:500;color:#5c3d1e">Step 3 — Select a size</div>
+            <span onclick="document.getElementById('sizechart-popup').style.cssText='display:flex;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;cursor:pointer'" style="font-size:9px;color:#8B5E3C;text-decoration:underline;cursor:pointer">Size chart</span>
+          </div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap">
+            <div class="size-btn" onclick="selectSize(this)">S</div>
+            <div class="size-btn" onclick="selectSize(this)">M</div>
+            <div class="size-btn active-size" onclick="selectSize(this)">L</div>
+            <div class="size-btn" onclick="selectSize(this)">XL</div>
+            <div class="size-btn" onclick="selectSize(this)">2XL</div>
+            <div class="size-btn" onclick="selectSize(this)">3XL</div>
+            <div class="size-btn" onclick="selectSize(this)">4XL</div>
+          </div>
+        </div>
       </div>
       <div class="customizer" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-height:200px">
         <div style="font-size:16px;font-weight:500;color:#5c3d1e">Live preview</div>
@@ -305,7 +444,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   <div class="section" id="reviews-section">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <div>
-        <div class="section-title">What pet lovers say</div>
+        <div class="section-title" style="font-size:16px">WHAT PET LOVERS SAY</div>
         <div class="section-sub">4.9 stars · 238 verified reviews</div>
       </div>
       <span style="font-size:11px;color:#8B5E3C;cursor:pointer">See all reviews →</span>
@@ -337,7 +476,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   </div>
 
   <div class="section" id="how-we-work-section" style="border-top:0.5px solid #e0cdb5">
-    <div class="section-title">How we work?</div>
+    <div class="section-title" style="font-size:16px">HOW WE WORK?</div>
     <div class="section-sub" style="color:#3d2410">Experience our seamless custom design process</div>
     <div class="how-work-grid">
       <div class="how-work-card">
@@ -426,7 +565,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
   <div class="footer">
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;margin-bottom:16px">
       <div>
-        <div style="font-size:16px;font-weight:500;color:#fffaf5;letter-spacing:2px;margin-bottom:6px">PETVIBE</div>
+        <img src="assets/PetVibe.png" alt="PETVIBE" style="height:28px;object-fit:contain;display:block;filter:brightness(0) invert(1);margin-bottom:6px">
         <div style="font-size:10px;color:#c4a07a;line-height:1.6">Turning pet photos into wearable art.<br>Handcrafted embroidery for pet lovers in US & EU.</div>
       </div>
       <div>
@@ -452,13 +591,13 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
 <!-- ===== EMAIL POPUP ===== -->
 <div id="email-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:1000;align-items:center;justify-content:center">
   <div style="background:#fffaf5;border-radius:16px;width:340px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.25);animation:popIn 0.3s ease">
-    <div style="background:#3d2410;padding:24px;text-align:center;position:relative">
+    <div style="background:#73421a;padding:24px;text-align:center;position:relative">
       <div style="font-size:28px;margin-bottom:6px">🐾</div>
       <div style="font-size:16px;font-weight:700;color:#fffaf5;letter-spacing:1px">Get 10% OFF your first order</div>
       <div style="font-size:11px;color:#c4a07a;margin-top:4px">Join 1,200+ pet lovers. No spam, ever.</div>
     </div>
     <div id="popup-form" style="padding:20px">
-      <input id="popup-email" type="email" placeholder="Enter your email address" style="width:100%;padding:10px 12px;border:1px solid #e0cdb5;border-radius:8px;font-size:12px;color:#3d2410;background:#fff;outline:none;margin-bottom:10px;box-sizing:border-box">
+      <input id="popup-email" type="email" placeholder="Enter your email address" style="width:100%;padding:10px 12px;border:1px solid #e0cdb5;border-radius:8px;font-size:12px;color:#73421a;background:#fff;outline:none;margin-bottom:10px;box-sizing:border-box">
       <button onclick="submitPopupEmail()" style="width:100%;padding:11px;background:#8B5E3C;color:#fffaf5;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.5px">Claim My 10% Discount →</button>
       <div style="text-align:center;margin-top:10px">
         <span onclick="closePopup()" style="font-size:10px;color:#9c8269;cursor:pointer;text-decoration:underline">No thanks, I'll pay full price</span>
@@ -466,7 +605,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
     </div>
     <div id="popup-thanks" style="display:none;padding:28px;text-align:center">
       <div style="font-size:32px;margin-bottom:8px">🎉</div>
-      <div style="font-size:15px;font-weight:700;color:#3d2410;margin-bottom:6px">Thank you!</div>
+      <div style="font-size:15px;font-weight:700;color:#73421a;margin-bottom:6px">Thank you!</div>
       <div style="font-size:11px;color:#7a4e2d;line-height:1.5">Your 10% discount code has been sent to your inbox. Check your email!</div>
     </div>
   </div>
@@ -615,7 +754,22 @@ function selectType(element) {
     element.style.background = "#8B5E3C";
     element.style.color = "#fffaf5";
 }
+function selectSize(el) {
+  document.querySelectorAll('.size-btn').forEach(b => {
+    b.classList.remove('active-size');
+    b.style.background = '#f5ede0';
+    b.style.color = '#7a4e2d';
+    b.style.borderColor = '#d4b896';
+  });
+  el.classList.add('active-size');
+  el.style.background = '#8B5E3C';
+  el.style.color = '#fffaf5';
+  el.style.borderColor = '#8B5E3C';
+}
 </script>
+<div id="sizechart-popup" onclick="this.style.display='none'" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;cursor:pointer">
+  <img src="assets/sizechart.jpg" alt="Size chart" style="max-width:88%;max-height:88vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.4)">
+</div>
 
 <!-- ===== CHECKOUT PAGE (hidden by default) ===== -->
 <div id="checkout-page" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;overflow-y:auto;background:#FDFAF6;z-index:9999">
@@ -625,7 +779,7 @@ function selectType(element) {
   .co { --brown:#2C1A0E;--brown-mid:#5C3B1E;--caramel:#A0622A;--sand:#D4B896;--cream:#F5EFE6;--cream-deep:#EDE4D6;--white:#FDFAF6;--text:#2C1A0E;--text-muted:#8B6A4E;--border:#D9CBBA;--accent:#7B4F2E;--success:#4A7C59;--radius:8px;--radius-lg:12px; font-family:'DM Sans',sans-serif; width:100%; min-height:100%; zoom:1.5; }
   .co * { box-sizing:border-box; margin:0; padding:0; }
   /* Header — scale kế thừa từ .pg (border-radius 12px, không overflow) */
-  .co .co-header { background:var(--brown);padding:0 20px;height:44px;display:flex;align-items:center;justify-content:space-between; }
+  .co .co-header { background:#9c6042;padding:0 20px;height:44px;display:flex;align-items:center;justify-content:space-between; }
   .co .back-btn { display:flex;align-items:center;gap:6px;color:#fffaf5;font-family:system-ui,-apple-system,sans-serif;font-size:16px;font-weight:500;letter-spacing:2px;cursor:pointer;border:none;background:none;transition:opacity .2s; }
   .co .back-btn:hover { opacity:.7; }
   .co .back-btn svg { width:14px;height:14px;flex-shrink:0; }
@@ -703,7 +857,7 @@ function selectType(element) {
   .co .order-item { display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border); }
   /* Fix viền hoodie: dùng outline thay vì border để tránh bị overflow:hidden cắt mất */
   .co .item-img { width:48px;height:48px;border-radius:var(--radius);background:var(--cream);outline:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;position:relative; }
-  .co .item-badge { position:absolute;top:-5px;right:-5px;width:16px;height:16px;background:var(--brown);color:var(--cream);border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500; }
+  .co .item-badge { position:absolute;top:-5px;right:-5px;width:16px;height:16px;background:#9c6042;color:var(--cream);border-radius:50%;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:500; }
   .co .item-info { flex:1; }
   .co .item-name { font-size:11px;font-weight:500;margin-bottom:2px; }
   .co .item-variant { font-size:10px;color:var(--text-muted); }
@@ -726,7 +880,6 @@ function selectType(element) {
   <header class="co-header">
     <button class="back-btn" onclick="goBack()">
       <svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4L6 9l5 5"/></svg>
-      PETVIBE
     </button>
     <div class="header-secure">
       <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="7" width="10" height="8" rx="2"/><path d="M5 7V5a3 3 0 016 0v2"/></svg>
