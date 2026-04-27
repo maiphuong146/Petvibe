@@ -181,31 +181,62 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
 
 /* HOW WE WORK STYLE */
 .how-work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
-.how-work-card{background:#fffaf5;border:0.5px solid #e0cdb5;border-radius:10px;padding:16px;text-align:left}
+.how-work-card{background:#fff;border:0.5px solid #e0cdb5;border-radius:10px;padding:16px;text-align:left}
 .how-work-icon{font-size:26px;margin-bottom:10px;display:block}
 .how-work-card h3{font-size:14px;font-weight:600;color:#3d2410;margin-bottom:8px}
 .how-work-card p{font-size:12px;color:#7a4e2d;line-height:1.5}
 
 /* FAQ STYLE CẬP NHẬT */
-.faq-item{border:0.5px solid #e0cdb5;border-radius:8px;margin-bottom:10px;overflow:hidden;background:#fff;transition:all 0.2s}
-.faq-header{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.faq-item:hover{border-color:#3d2410}
+/* giữ style cũ */
+.faq-item{
+  border:0.5px solid #e0cdb5;
+  border-radius:8px;
+  margin-bottom:10px;
+  overflow:hidden;
+  background:#fff;
+}
+
+.faq-header{
+  padding:10px 16px;
+  font-size:10px;
+  color:#3d2410;
+  font-weight:500;
+}
+
+/* 👉 bỏ animation collapse */
+.faq-answer{
+  padding:10px 16px 14px;
+}
+
+/* 👉 input style */
+.form-item input,
+.form-item textarea{
+  width:100%;
+  padding:8px 10px;
+  font-size:11px;
+  border-radius:6px;
+  border:1px solid #d4b896;
+  background:#fffaf5;
+  color:#3d2410;
+  outline:none;
+}
+
+.form-item input:focus,
+.form-item textarea:focus{
+  border-color:#8B5E3C;
+}
 .size-btn{padding:4px 8px;border-radius:5px;font-size:9px;font-weight:500;cursor:pointer;background:#f5ede0;color:#7a4e2d;border:0.5px solid #d4b896;transition:all 0.15s;user-select:none}
 .size-btn:hover{background:#e8d5be}
 .size-btn.active-size{background:#8B5E3C;color:#fffaf5;border-color:#8B5E3C}
 #sizechart-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:99999;align-items:center;justify-content:center;cursor:pointer}
 #sizechart-popup img{max-width:88%;max-height:88vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
-.faq-question{font-size:12px;color:#3d2410;font-weight:500}
-.faq-icon{font-size:12px;color:#9c8269;transition: transform 0.3s}
-.faq-answer{max-height:0;overflow:hidden;padding:0 20px;font-size:11px;color:#5c3d1e;line-height:1.5;transition: max-height 0.3s ease-out, padding 0.3s ease;}
-.faq-item.active .faq-answer{max-height:100px;padding-bottom:14px}
-.faq-item.active .faq-icon{transform: rotate(45deg)}
 
 /* MÀU NỀN MỚI THEO YÊU CẦU: #fffaf5 */
 #products-section, #how-we-work-section, #faq-section {
     background-color: #fffaf5 !important;
 }
 #faq-section { border-top: none !important; padding-top: 24px !important;}
+
 </style>
 </head>
 <body>
@@ -221,7 +252,7 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
       <span onclick="document.getElementById('how-we-work-section').scrollIntoView({behavior:'smooth'})">How it works</span>
       <span onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">Gallery</span>
       <span onclick="document.getElementById('reviews-section').scrollIntoView({behavior:'smooth'})">Reviews</span>
-      <span onclick="document.getElementById('faq-section').scrollIntoView({behavior:'smooth'})">FAQ</span>
+      <span onclick="document.getElementById('faq-section').scrollIntoView({behavior:'smooth'})">Contact Us</span>
     </div>
     <div class="nav-right">
       <span>Search</span>
@@ -444,7 +475,8 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
     </div>
   </div>
 
-  <div class="section" id="reviews-section">
+
+  <div class="section" id="reviews-section" style="background:#fffaf5">
     <div style="display:flex;justify-content:space-between;align-items:baseline">
       <div>
         <div class="section-title" style="font-size:16px">WHAT PET LOVERS SAY</div>
@@ -500,50 +532,64 @@ body{font-family:system-ui, -apple-system, sans-serif; scroll-behavior: smooth;}
     </div>
   </div>
 
-  <div class="section" id="faq-section">
-    <div style="display:inline-block; background:#f5ede0; padding:5px 14px; border-radius:4px; font-size:13px; color:#5c3d1e; font-weight:700; margin-bottom:16px; letter-spacing:1px">FAQ</div>
-    
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFaq(this)">
-            <span class="faq-question">What kind of photo do I need to submit?</span>
-            <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Use a clear, well-lit front-facing photo of your pet. Avoid blurry or cropped images — we need to see the full face and ears to create the best embroidery possible.</div>
-      </div>
+  <div class="section" id="faq-section" >
 
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFaq(this)">
-            <span class="faq-question">Can I preview the design before it's embroidered?</span>
-            <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Absolutely! After you place your order, our artist will digitize your pet's portrait and send you a free mock-up for approval via email before we start embroidering.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFaq(this)">
-            <span class="faq-question">How long does delivery take?</span>
-            <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">We typically need 2–3 days to digitize and embroider your design, plus 3–5 days for shipping depending on your location. Total: around 5–7 days to your door.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFaq(this)">
-            <span class="faq-question">What if I'm not happy with the mock-up?</span>
-            <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">No worries — we offer unlimited free revisions until you're 100% satisfied. If the design doesn't meet your expectations, we'll issue a full refund.</div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-header" onclick="toggleFaq(this)">
-            <span class="faq-question">Is the embroidery durable and long-lasting?</span>
-            <span class="faq-icon">+</span>
-        </div>
-        <div class="faq-answer">Yes! We use premium embroidery thread and industrial-grade machines to ensure your design stays vivid and intact through countless washes without fading or peeling.</div>
-      </div>
+    <div style="display:inline-block; background:#f5ede0; padding:5px 14px; border-radius:4px; font-size:13px; color:#5c3d1e; font-weight:700; margin-bottom:16px; letter-spacing:1px">
+      HOW CAN WE HELP?
     </div>
+
+    <div style="font-size:11px;color:#5c3d1e;margin-bottom:14px;line-height:1.5">
+      We’re a small, real team in Austin Texas — and we’re here to help.<br>
+      Please allow 24–48 business hours for a response.
+    </div>
+
+    <div style="font-size:10px;color:#9c8269;margin-bottom:16px">
+      Email: Pupsentialshelp@gmail.com<br>
+      Support Hours: Monday–Friday, 10am–3pm CST<br><br>
+      Standard Custom Order Lead time: 4 week delivery<br>
+      Rush Custom Order Lead time: 2–3 week delivery
+    </div>
+
+    <!-- FORM -->
+    <form action="mailto:Pupsentialshelp@gmail.com" method="POST" enctype="text/plain" class="faq-list">
+
+      <!-- NAME -->
+      <div class="faq-item form-item">
+        <div class="faq-header">
+          <span class="faq-question">NAME</span>
+        </div>
+        <div class="faq-answer active">
+          <input type="text" name="name" placeholder="Your name" required>
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="faq-item form-item">
+        <div class="faq-header">
+          <span class="faq-question">EMAIL*</span>
+        </div>
+        <div class="faq-answer active">
+          <input type="email" name="email" placeholder="Your email" required>
+        </div>
+      </div>
+
+      <!-- MESSAGE -->
+      <div class="faq-item form-item">
+        <div class="faq-header">
+          <span class="faq-question">MESSAGE</span>
+        </div>
+        <div class="faq-answer active">
+          <textarea name="message" rows="4" placeholder="Your message"></textarea>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+      <button type="submit" class="btn btn-white" style="margin-top:10px">
+        SEND →
+      </button>
+
+    </form>
+
   </div>
 
   <div style="background:#f5ede0;border-top:0.5px solid #e0cdb5;border-bottom:0.5px solid #e0cdb5;display:grid;grid-template-columns:repeat(4,1fr)">
